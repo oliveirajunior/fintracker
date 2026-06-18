@@ -29,8 +29,11 @@ public class Wallet {
     @Column(name = "updatedAt", nullable = false)
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "account", cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
+    @OneToMany(mappedBy = "wallet", cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
     private List<Transaction> transactions;
+
+    public Wallet() {
+    }
 
     public Wallet(UUID id, String name, String description, BigDecimal currentBalance, LocalDateTime createdAt, LocalDateTime updatedAt, List<Transaction> transactions) {
         this.id = id;

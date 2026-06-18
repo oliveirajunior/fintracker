@@ -22,12 +22,15 @@ public class Transaction {
     @Column(name = "date", nullable = false)
     private LocalDateTime date;
 
-    @Column(name = "date", nullable = false)
+    @Column(name = "type", nullable = false)
     private Type type;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "wallet_id")
     private Wallet wallet;
+
+    public Transaction() {
+    }
 
     public Transaction(UUID id, String description, BigDecimal amount, LocalDateTime date, Type type, Wallet wallet) {
         this.id = id;
@@ -78,11 +81,11 @@ public class Transaction {
         this.type = type;
     }
 
-    public Wallet getAccount() {
+    public Wallet getWallet() {
         return wallet;
     }
 
-    public void setAccount(Wallet wallet) {
+    public void setWallet(Wallet wallet) {
         this.wallet = wallet;
     }
 
