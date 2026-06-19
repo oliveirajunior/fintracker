@@ -13,7 +13,6 @@ public record TransactionDto(
         BigDecimal amount,
         LocalDateTime date,
         Type type,
-
         Wallet wallet
 ) {
 }

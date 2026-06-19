@@ -2,18 +2,16 @@ package manoel.fintracker.mappers.impl;
 
 import manoel.fintracker.domain.dtos.WalletDto;
 import manoel.fintracker.domain.entities.Wallet;
-import manoel.fintracker.mappers.TransactionMapper;
 import manoel.fintracker.mappers.WalletMapper;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 @Component
 public class WalletMapperImpl implements WalletMapper {
 
-    private final TransactionMapper transactionMapper;
-
-    public WalletMapperImpl(TransactionMapper transactionMapper) {
-        this.transactionMapper = transactionMapper;
-    }
+    public WalletMapperImpl() {
+    };
 
     @Override
     public Wallet toEntity(WalletDto walletDto) {
@@ -24,7 +22,8 @@ public class WalletMapperImpl implements WalletMapper {
                 walletDto.currentBalance(),
                 null,
                 null,
-                walletDto.transactions().stream().toList()//TODO
+                //walletDto.transactions().stream().toList());
+                Optional.ofNullable(walletDto.transactions()).map(t -> t.stream().toList()).orElse(null)
         );
     }
 
@@ -35,7 +34,6 @@ public class WalletMapperImpl implements WalletMapper {
                 wallet.getName(),
                 wallet.getDescription(),
                 wallet.getCurrentBalance(),
-                wallet.getTransactions()
-        );
+                wallet.getTransactions());
     }
 }

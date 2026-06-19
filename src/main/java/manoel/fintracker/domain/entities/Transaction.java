@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
+@Entity
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
