@@ -2,6 +2,7 @@ package manoel.fintracker.controllers;
 
 import jakarta.websocket.server.PathParam;
 import manoel.fintracker.domain.dtos.WalletDto;
+import manoel.fintracker.domain.dtos.WalletDtoResponse;
 import manoel.fintracker.domain.entities.Wallet;
 import manoel.fintracker.mappers.WalletMapper;
 import manoel.fintracker.services.WalletService;
@@ -26,12 +27,12 @@ public class WalletController {
     }
 
     @GetMapping
-    public List<WalletDto> listWallets() {
+    public List<WalletDtoResponse> listWallets() {
         return walletService.listWallets().stream().map(walletMapper::toDto).toList();
     }
 
     @PostMapping
-    public WalletDto createWallet(@RequestBody WalletDto walletDto){
+    public WalletDtoResponse createWallet(@RequestBody WalletDto walletDto){
         Wallet wallet = walletMapper.toEntity(walletDto);
         wallet = walletService.createWallet(wallet);
         return walletMapper.toDto(wallet);
@@ -39,7 +40,7 @@ public class WalletController {
 
 
     @GetMapping(path = "/{wallet_id}")
-    public Optional<WalletDto> getWallet(@PathVariable("wallet_id")
+    public Optional<WalletDtoResponse> getWallet(@PathVariable("wallet_id")
     UUID walletId){
         Optional<Wallet> wallet = walletService.getWallet(walletId);
         return wallet.map(walletMapper::toDto);
@@ -47,7 +48,7 @@ public class WalletController {
 
     //
     @PutMapping(path = "/{wallet_id}")
-    public WalletDto updateWallet(
+    public WalletDtoResponse updateWallet(
             @PathVariable("wallet_id") UUID walletId,
             @RequestBody WalletDto walletDto
     ){

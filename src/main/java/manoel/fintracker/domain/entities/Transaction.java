@@ -27,7 +27,7 @@ public class Transaction {
     private Type type;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "wallet_id")
+    @JoinColumn(name = "wallet_id") 
     private Wallet wallet;
 
     public Transaction() {

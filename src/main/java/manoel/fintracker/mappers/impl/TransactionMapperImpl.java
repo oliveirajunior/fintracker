@@ -1,6 +1,7 @@
 package manoel.fintracker.mappers.impl;
 
 import manoel.fintracker.domain.dtos.TransactionDto;
+import manoel.fintracker.domain.dtos.TransactionDtoResponse;
 import manoel.fintracker.domain.entities.Transaction;
 import manoel.fintracker.mappers.TransactionMapper;
 import org.springframework.stereotype.Component;
@@ -20,14 +21,15 @@ public class TransactionMapperImpl implements TransactionMapper {
     }
 
     @Override
-    public TransactionDto toDto(Transaction transaction) {
-        return new TransactionDto(
+    public TransactionDtoResponse toDto(Transaction transaction) {
+        return new TransactionDtoResponse(
                 transaction.getId(),
                 transaction.getDescription(),
                 transaction.getAmount(),
                 transaction.getDate(),
                 transaction.getType(),
-                transaction.getWallet()
+                transaction.getWallet().getId(),
+                transaction.getWallet().getName()
         );
     }
 }

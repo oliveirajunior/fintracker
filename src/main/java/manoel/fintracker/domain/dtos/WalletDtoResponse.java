@@ -6,12 +6,11 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
-public record WalletDto(
+public record WalletDtoResponse(
         UUID id,
         String name,
         String description,
         BigDecimal currentBalance,
-        List<TransactionDto> transactions
+        List<TransactionDtoResponse> transactions
 ) {
-
 }
