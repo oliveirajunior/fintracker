@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -31,6 +32,27 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public Transaction createTransaction(UUID walletId, Transaction transaction){
+
+        if(transaction.getId() != null){
+            throw new IllegalArgumentException("Transaction already has an ID!");
+        }
+
+        if(transaction.getDescription() == null){
+            throw new IllegalArgumentException("Transaction must have a description!");
+        }
+
+        if(transaction.getAmount() == null){
+            throw new IllegalArgumentException("Transaction must have a valid amount!");
+        }
+
+        if(transaction.getDate() == null){
+            throw new IllegalArgumentException("Transaction must have a valid date!");
+        }
+
+        if(transaction.getType() == null){
+            throw new IllegalArgumentException("Transaction must have a valid type!");
+        }
+
         Wallet wallet = walletRepository.findById(walletId).orElseThrow(() -> new IllegalArgumentException(("Invalid Wallet ID provided!")));
 
         BigDecimal amount = new BigDecimal(transaction.getAmount().toString());
@@ -54,6 +76,15 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public Transaction updateTransaction(UUID walletId, UUID transactionId, Transaction transaction){
+
+        if(transaction.getId() == null){
+            throw new IllegalArgumentException("Transaction must have an ID");
+        }
+
+        if(!Objects.equals(transaction.getId(), transactionId)){
+            throw new IllegalArgumentException("Attempting to change transaction ID, this is not permitted!");
+        }
+
         Transaction existingTransaction = transactionRepository.findByWalletIdAndId(walletId, transactionId).orElseThrow(() -> new IllegalArgumentException("transaction not found!"));
 
         existingTransaction.setDescription(transaction.getDescription());

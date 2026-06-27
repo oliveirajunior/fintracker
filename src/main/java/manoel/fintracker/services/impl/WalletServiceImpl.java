@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -27,6 +28,14 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     public Wallet createWallet(Wallet wallet){
+
+        if(wallet.getId() != null){
+            throw new IllegalArgumentException("Wallet already has an ID!");
+        }
+        if(wallet.getName() == null || wallet.getName().isBlank()){
+            throw new IllegalArgumentException("Wallet name must be present!");
+        }
+
         return walletRepository.save(new Wallet(
                 null,
                 wallet.getName(),
@@ -45,6 +54,15 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     public Wallet updateWallet(UUID walletId, Wallet wallet){
+
+        if(wallet.getId() == null){
+            throw new IllegalArgumentException("Wallet must have an ID");
+        }
+
+        if(!Objects.equals(wallet.getId(), walletId)){
+            throw new IllegalArgumentException("Attempting to change wallet ID, this is not permitted!");
+        }
+
        Wallet existingWallet = walletRepository.findById(walletId).orElseThrow(() -> new IllegalArgumentException("Wallet not found!"));
 
        existingWallet.setName(wallet.getName());
