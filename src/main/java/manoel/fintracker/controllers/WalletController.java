@@ -1,6 +1,5 @@
 package manoel.fintracker.controllers;
 
-import jakarta.websocket.server.PathParam;
 import manoel.fintracker.domain.dtos.WalletDto;
 import manoel.fintracker.domain.dtos.WalletDtoResponse;
 import manoel.fintracker.domain.entities.Wallet;

@@ -3,9 +3,7 @@ package manoel.fintracker.controllers;
 import jakarta.transaction.Transactional;
 import manoel.fintracker.domain.dtos.TransactionDto;
 import manoel.fintracker.domain.dtos.TransactionDtoResponse;
-import manoel.fintracker.domain.dtos.WalletDto;
 import manoel.fintracker.domain.entities.Transaction;
-import manoel.fintracker.domain.entities.Wallet;
 import manoel.fintracker.mappers.TransactionMapper;
 import manoel.fintracker.services.TransactionService;
 import org.springframework.web.bind.annotation.*;
@@ -73,8 +71,4 @@ public class TransactionController {
     ){
         transactionService.deleteTransaction(walletId, transactionId);
     }
-
-
-
-
 }
