@@ -8,7 +8,6 @@ import manoel.fintracker.services.TransactionService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -61,7 +60,8 @@ public class TransactionServiceImpl implements TransactionService {
                 null,
                 transaction.getDescription(),
                 amount,
-                LocalDateTime.now(),
+                //LocalDateTime.now(),
+                transaction.getDate(),
                 transaction.getType(),
                 wallet
         );
